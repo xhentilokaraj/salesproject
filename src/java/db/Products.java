@@ -7,7 +7,6 @@ package db;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,13 +16,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -62,8 +59,6 @@ public class Products implements Serializable {
     private String manufacturer;
     @Column(name = "quantityavl")
     private Integer quantityavl;
-    @OneToMany(mappedBy = "productid")
-    private Collection<Sales> salesCollection;
 
     public Products() {
     }
@@ -118,15 +113,6 @@ public class Products implements Serializable {
 
     public void setQuantityavl(Integer quantityavl) {
         this.quantityavl = quantityavl;
-    }
-
-    @XmlTransient
-    public Collection<Sales> getSalesCollection() {
-        return salesCollection;
-    }
-
-    public void setSalesCollection(Collection<Sales> salesCollection) {
-        this.salesCollection = salesCollection;
     }
 
     @Override

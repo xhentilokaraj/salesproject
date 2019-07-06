@@ -5,6 +5,7 @@
  */
 package server;
 
+import com.mysql.jdbc.StringUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -66,25 +67,59 @@ public class SalesUser extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html>" + "<head><title> Sales User Page </title></head>");
 
-        // then write the data of the response
+        // write the data of the response
         out.println(
                 "<body  bgcolor=\"#ffffff\">"
-                + "<h2>Insert the ID of the product for which you want to know the available amount</h2>"
+                + "<h3>Insert the ID of the product for which you want to know the available amount</h3>"
                 + "<form method=\"get\">"
-                + "<input type=\"text\" name=\"productid\" size=\"25\">"
+                + "<input type=\"text\" name=\"productid\" size=\"22\">"
+                + "<p></p>" + "<input type=\"submit\" value=\"Submit\">"
+                + "<input type=\"reset\" value=\"Reset\">" + "</form>");
+
+        out.println(
+                "<body  bgcolor=\"#ffffff\">"
+                + "<h3>Insert the ID of the product for which you want to know the number of total sales: </h3>"
+                + "<form method=\"get\">"
+                + "<input type=\"text\" name=\"productcountsl\" size=\"22\">"
+                + "<p></p>" + "<input type=\"submit\" value=\"Submit\">"
+                + "<input type=\"reset\" value=\"Reset\">" + "</form>");
+
+        out.println(
+                "<body  bgcolor=\"#ffffff\">"
+                + "<h3>Insert the ID of the product for which you want to know the total sales over the last month: </h3>"
+                + "<form method=\"get\">"
+                + "<input type=\"text\" name=\"productcountmonth\" size=\"22\">"
+                + "<p></p>" + "<input type=\"submit\" value=\"Submit\">"
+                + "<input type=\"reset\" value=\"Reset\">" + "</form>");
+
+          out.println(
+                "<body  bgcolor=\"#ffffff\">"
+                + "<h3>Insert time interval for which you want the total amount of sales: </h3>"
+                + "<form method=\"get\">"
+                + "<input type=\"date\" name=\"mindate\" size=\"22\">"
+                + "<input type=\"date\" name=\"maxdate\" size=\"22\">"
                 + "<p></p>" + "<input type=\"submit\" value=\"Submit\">"
                 + "<input type=\"reset\" value=\"Reset\">" + "</form>");
 
         String productid = request.getParameter("productid");
+        String productcountsl = request.getParameter("productcountsl");
+        String productcountmonth = request.getParameter("productcountmonth");
+        String mindate = request.getParameter("mindate");
+        String maxdate = request.getParameter("maxdate");
 
-        if ((productid != null) && (Integer.parseInt(productid) > 0)) {
+        if (((productid != null) && (Integer.parseInt(productid) > 0) && (!productid.isEmpty()))
+                || ((productcountsl != null) && (Integer.parseInt(productcountsl) > 0) && (!productcountsl.isEmpty()))
+                || ((productcountmonth != null) && (Integer.parseInt(productcountmonth) > 0)
+                && (!productcountmonth.isEmpty()))
+                || ((mindate != null) && (!mindate.isEmpty()))
+                || ((maxdate != null) && (!maxdate.isEmpty()))) {
 
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher(
-                            "/SalesServlet");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/SalesServlet");
             if (dispatcher != null) {
                 dispatcher.include(request, response);
             }
+        } else {
+            out.println("<h3>Please input valid values.</h3>");
         }
 
         out.println("</body></html>");

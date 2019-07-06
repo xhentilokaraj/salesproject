@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -33,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Sales.findAll", query = "SELECT s FROM Sales s")
     , @NamedQuery(name = "Sales.findBySalesid", query = "SELECT s FROM Sales s WHERE s.salesid = :salesid")
+    , @NamedQuery(name = "Sales.findByProductid", query = "SELECT s FROM Sales s WHERE s.productid = :productid")
     , @NamedQuery(name = "Sales.findBySalesdate", query = "SELECT s FROM Sales s WHERE s.salesdate = :salesdate")
     , @NamedQuery(name = "Sales.findByTotalamount", query = "SELECT s FROM Sales s WHERE s.totalamount = :totalamount")
     , @NamedQuery(name = "Sales.findByNrofitems", query = "SELECT s FROM Sales s WHERE s.nrofitems = :nrofitems")})
@@ -44,6 +43,8 @@ public class Sales implements Serializable {
     @Basic(optional = false)
     @Column(name = "salesid")
     private Integer salesid;
+    @Column(name = "productid")
+    private Integer productid;
     @Column(name = "salesdate")
     @Temporal(TemporalType.DATE)
     private Date salesdate;
@@ -52,9 +53,6 @@ public class Sales implements Serializable {
     private BigDecimal totalamount;
     @Column(name = "nrofitems")
     private Integer nrofitems;
-    @JoinColumn(name = "productid", referencedColumnName = "productid")
-    @ManyToOne
-    private Products productid;
 
     public Sales() {
     }
@@ -69,6 +67,14 @@ public class Sales implements Serializable {
 
     public void setSalesid(Integer salesid) {
         this.salesid = salesid;
+    }
+
+    public Integer getProductid() {
+        return productid;
+    }
+
+    public void setProductid(Integer productid) {
+        this.productid = productid;
     }
 
     public Date getSalesdate() {
@@ -93,14 +99,6 @@ public class Sales implements Serializable {
 
     public void setNrofitems(Integer nrofitems) {
         this.nrofitems = nrofitems;
-    }
-
-    public Products getProductid() {
-        return productid;
-    }
-
-    public void setProductid(Products productid) {
-        this.productid = productid;
     }
 
     @Override
