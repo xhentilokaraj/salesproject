@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -136,21 +137,19 @@ public class SalesServlet extends HttpServlet {
             try {
                 Query nq = emf.createEntityManager().createNamedQuery("Sales.findAll");
                 List<Sales> L = (List<Sales>) nq.getResultList();
-                BigDecimal sum = new BigDecimal("0");
-                
-                String dateMinString = new java.text.SimpleDateFormat("dd/mm/yyyy").format(minDate);
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
-                Date dateMin = formatter.parse(dateMinString);
-                
-                String dateMaxString = new java.text.SimpleDateFormat("dd/mm/yyyy").format(maxDate);
-                Date dateMax = formatter.parse(dateMaxString);
-                
+                BigDecimal sum = new BigDecimal(0);
+
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+                Date dateMinDt = formatter.parse(minDate);
+                Date dateMaxDt = formatter.parse(maxDate);
+
                 for (int i = 0; i < L.size(); i++) {
-                    if ((L.get(i).getSalesdate().after(dateMin)) && (L.get(i).getSalesdate().before(dateMax))) {
-                        sum.add(L.get(i).getTotalamount());
+                    if ((L.get(i).getSalesdate().after(dateMinDt)) && (L.get(i).getSalesdate().before(dateMaxDt))) {
+                        sum = sum.add(L.get(i).getTotalamount());
                     }
                 }
-                out.println("<h3>Total amount of sales for the requested time interval, is " + sum + ".</h3>");
+                out.println("<h3>Total amount of sales for the requested time interval is " + sum + ".</h3>");
             } catch (ParseException ex) {
                 Logger.getLogger(SalesServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
