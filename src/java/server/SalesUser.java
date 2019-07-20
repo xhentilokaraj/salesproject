@@ -92,7 +92,7 @@ public class SalesUser extends HttpServlet {
                 + "<p></p>" + "<input type=\"submit\" value=\"Submit\">"
                 + "<input type=\"reset\" value=\"Reset\">" + "</form>");
 
-          out.println(
+        out.println(
                 "<body  bgcolor=\"#ffffff\">"
                 + "<h3>Insert time interval for which you want the total amount of sales: </h3>"
                 + "<form method=\"get\">"
@@ -107,20 +107,18 @@ public class SalesUser extends HttpServlet {
         String mindate = request.getParameter("mindate");
         String maxdate = request.getParameter("maxdate");
 
-        if (((productid != null) && (Integer.parseInt(productid) > 0) && (!productid.isEmpty()))
-                || ((productcountsl != null) && (Integer.parseInt(productcountsl) > 0) && (!productcountsl.isEmpty()))
+        if (((productid != null) && (Integer.parseInt(productid) > 0) && (productid.length() > 0))
+                || ((productcountsl != null) && (Integer.parseInt(productcountsl) > 0) && (productcountsl.length() > 0))
                 || ((productcountmonth != null) && (Integer.parseInt(productcountmonth) > 0)
-                && (!productcountmonth.isEmpty()))
-                || ((mindate != null) && (!mindate.isEmpty()))
-                || ((maxdate != null) && (!maxdate.isEmpty()))) {
+                && (productcountmonth.length() > 0))
+                || ((mindate != null) && (mindate.length() > 0))
+                || ((maxdate != null) && (maxdate.length() > 0))) {
 
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/SalesServlet");
             if (dispatcher != null) {
                 dispatcher.include(request, response);
             }
-        } else {
-            out.println("<h3>Please input valid values.</h3>");
-        }
+        } 
 
         out.println("</body></html>");
         out.close();
