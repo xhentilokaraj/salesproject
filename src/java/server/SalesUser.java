@@ -106,7 +106,7 @@ public class SalesUser extends HttpServlet {
         String productcountmonth = request.getParameter("productcountmonth");
         String mindate = request.getParameter("mindate");
         String maxdate = request.getParameter("maxdate");
-
+        
         if (((productid != null) && (Integer.parseInt(productid) > 0) && (productid.length() > 0))
                 || ((productcountsl != null) && (Integer.parseInt(productcountsl) > 0) && (productcountsl.length() > 0))
                 || ((productcountmonth != null) && (Integer.parseInt(productcountmonth) > 0)

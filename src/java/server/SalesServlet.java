@@ -94,8 +94,16 @@ public class SalesServlet extends HttpServlet {
             nq.setParameter("productid", Integer.parseInt(productId));
             Products prod = (Products) nq.getResultList().get(0);
             List<Products> L = (List<Products>) nq.getResultList();
-            out.println("<h3> The product with ID: " + prod.getProductid() + " and name: '" + prod.getProductname()
-                    + "' has " + prod.getQuantityavl() + " items available.</h3>");
+            String displayMsg;
+            displayMsg = "<h3> The product with ID: " + prod.getProductid() + " and name: '" + prod.getProductname()
+                    + "' has ";
+            if (prod.getQuantityavl() == null)
+                displayMsg += " 0 ";
+            else
+                displayMsg += prod.getQuantityavl();
+            displayMsg += " items available.</h3>";
+                   
+            out.println(displayMsg);
         }
 
         if (productCountSales != null) {
