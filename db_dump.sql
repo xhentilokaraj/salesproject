@@ -18,6 +18,34 @@ USE `sales`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `productid` int(11) NOT NULL AUTO_INCREMENT,
+  `productname` varchar(200) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `arrivaldate` date DEFAULT NULL,
+  `manufacturer` varchar(100) DEFAULT NULL,
+  `quantityavl` int(11) DEFAULT NULL,
+  PRIMARY KEY (`productid`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (1,'iPhone X',900.00,'2019-06-23','Apple',34),(2,'Samsung S9',670.00,'2019-05-03','Samsung',9),(3,'Xiaomi mi 8',450.00,'2019-05-30','Xiaomi',50),(4,'Samsung S5',200.00,'2019-04-20','Samsung',30),(5,'iPhone 7 Plus',500.00,'2019-05-01','Apple',23),(6,'Samsung S10',800.00,'2019-07-15','Samsung',NULL);
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `sales`
 --
 
@@ -53,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-26 11:56:11
+-- Dump completed on 2019-07-27 18:42:18
